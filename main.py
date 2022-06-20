@@ -20,6 +20,8 @@ def insert():
 def user_dialog():
 
     a = {1: 'Получить данные', 2: 'Добавить данные', 3: 'Обновить данные', 4: 'Удалить данные', 0: 'Выйти из программы'}
+    for key, value in a.items():
+            print(key, value)
     i = int(input('Введите ключ, что хотите получить\n'))
     n = a.get(i)
     print(n)
