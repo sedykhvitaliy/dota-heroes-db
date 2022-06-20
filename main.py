@@ -22,28 +22,31 @@ def user_dialog():
         user_dialog()
         return
 
-    while True:
-        if a == 0:
-            b = input('Вы уверенны?\n')
-            if b == 'Да':
+    if a == '0':
+            b = input('Хотите завершить работу с программой? (y/n)\n')
+            if b == 'y':
                 print('Вы вышли из программы')
-                break
-        elif a > 4:
+                exit()
+    elif a > '4':
             print('Раздел меню не найден')
-            break
-        elif a < 4:
+
+    elif a < 4:
             c = int(input('\n1.Герои(Heroes)\n2.Доп.инфо(heroes_info\n3.Характеристики(stats)\n4.Уровень меты(meta)\n9.Вернуться в предыдущее меню\n0.Выйти из программы\n'))
             if c == 0:
-                break
-            elif c == 9:
+                b = input('Хотите завершить работу с программой? (y/n)\n')
+                if b == 'y':
+                    print('Вы вышли из программы')
+                    exit()
+            
+            elif c == '9':
                 print()
-            elif c == 1:
+            elif c == '1':
                 name = input('\nВведите имя героя\n')
-            elif c == 2:
+            elif c == '2':
                 name = input('\nВведите имя героя\n')
-            elif c == 3:
+            elif c == '3':
                 name = input('\nВведите имя героя\n')
-            elif c == 4:
+            elif c == '4':
                 name = input('\nВведите имя героя\n')
 
 
