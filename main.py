@@ -1,6 +1,7 @@
 
 
 from ast import main
+from pickle import FALSE
 from typing import Dict
 from unittest import result
 
@@ -93,21 +94,32 @@ def print_menu(menu: Dict):
 def input_process(menu: Dict):
 
     result = input('Введите ключ, что хотите получить\n')
-    current = menu.get(result)
+    if result.isdecimal() == False:
+        menu_404()
+        return input_process(menu)     
 
+    current = menu.get(int(result))
+         
     if result == '0':
-        b = input('Хотите завершить работу с программой? (y/n)\n')
-        if b == 'y':
-            if menu == 'Выйти из программы':
-                print('Вы вышли из программы')
-                exit()
+       menu_exit()
 
     elif current == None:
-        print('Раздел меню не найден')
-        print('-----')
+        menu_404()
         main_dialog()
     
     return result 
+
+def menu_exit():
+
+    b = input('Хотите завершить работу с программой? (y/n)\n')
+    if b == 'y':
+        print('Вы вышли из программы')
+        exit()
+        
+def menu_404():
+
+     print('Раздел меню не найден')
+     print('-----')
 
 
 user_dialog()
