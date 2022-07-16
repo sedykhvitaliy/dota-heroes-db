@@ -1,12 +1,21 @@
 from typing import Dict
 from actions import *
 from menu_items import *
+from operations import select
 
 
 def user_dialog():
 
     result_main = main_dialog()
     result_heroes = heroes_dialog(result_main)
+    heroes_dialog_operations(result_heroes)
+
+
+def heroes_dialog_operations(id):
+
+    if id == '1':
+        name = input("Введите имя, которое хотите найти\n")
+        print(select("bd\heroes.csv", "name", name))
 
 
 def main_dialog():
