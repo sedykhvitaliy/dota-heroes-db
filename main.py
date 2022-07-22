@@ -16,6 +16,21 @@ def heroes_dialog_operations(id):
     if id == '1':
         name = input("Введите имя, которое хотите найти\n")
         print(select("bd\heroes.csv", "name", name))
+    elif id == '2':
+        id = input("Введите id, который хотите найти\n")
+        print(select("bd\heroes_info.csv", "id", id))
+    elif id == '3':
+        id = input("Введите id, который хотите найти\n")
+        print(select("bd\stats.csv", "id", id))
+    elif id == '4':
+        id = input("Введите id, который хотите найти\n")
+        print(select("bd\meta.csv", "id", id))
+    elif id == '9':
+        pass
+    elif id == '0':
+        menu_exit()
+    else:
+        menu_404() 
 
 
 def main_dialog():
