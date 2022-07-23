@@ -17,8 +17,13 @@ def heroes_dialog_operations(id):
         name = input("Введите имя, которое хотите найти\n")
         print(select("bd\heroes.csv", "name", name))
     elif id == '2':
-        id = input("Введите id, который хотите найти\n")
-        print(select("bd\heroes_info.csv", "id", id))
+        
+        name = input("Введите name, который хотите найти\n")
+
+        data = select("bd\heroes.csv", "name", name)
+
+        print(select("bd\heroes_info.csv", "id", data.get('id')))
+
     elif id == '3':
         id = input("Введите id, который хотите найти\n")
         print(select("bd\stats.csv", "id", id))
