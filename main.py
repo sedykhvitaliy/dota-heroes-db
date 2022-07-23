@@ -26,11 +26,13 @@ def heroes_dialog_operations(id):
         id = input("Введите id, который хотите найти\n")
         print(select("bd\meta.csv", "id", id))
     elif id == '9':
-        pass
+        user_dialog()
     elif id == '0':
-        menu_exit()
+        menu_exit(user_dialog)
     else:
-        menu_404() 
+        menu_404()
+
+    user_dialog()
 
 
 def main_dialog():
@@ -38,15 +40,15 @@ def main_dialog():
     main_menu = get_main_menu()
     print_menu(main_menu)
 
-    return input_process(main_menu)
+    return input_process(main_menu, user_dialog)
 
 
-def heroes_dialog(result_main):
+def heroes_dialog(result_main='1'):
 
     if result_main == '1':
         heroes_menu = get_heroes_menu()
         print_menu(heroes_menu)
-        return input_process(heroes_menu)
+        return input_process(heroes_menu, heroes_dialog)
 
 
 def print_menu(menu: Dict):
@@ -56,19 +58,20 @@ def print_menu(menu: Dict):
     print('-----')
 
 
-def input_process(menu: Dict):
+def input_process(menu: Dict, return_dialog):
 
     result = input('Введите ключ, что хотите получить\n')
     if result.isdecimal() == False:
         menu_404()
-        return input_process(menu)
+        return input_process(menu, return_dialog)
 
     current = menu.get(int(result))
 
     if result == '0':
-        menu_exit()
+        result = menu_exit(return_dialog)
 
     elif current == None:
+
         menu_404()
         main_dialog()
 
