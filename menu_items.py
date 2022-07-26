@@ -19,3 +19,13 @@ def get_heroes_menu():
         9: 'Вернуться в предыдущее меню',
         0: 'Выйти из программы'
     }
+
+
+def get_database():
+    return {
+        1: 'bd\heroes.csv',
+        2: 'bd\heroes_info.csv',
+        3: 'bd\meta.csv',
+        4: 'bd\stats.csv',
+
+    }

@@ -12,24 +12,30 @@ def user_dialog():
 
 
 def heroes_dialog_operations(id):
-
+    #key_database = input('Введите желаемую баззу данных ')
+    #database =  get_database.get(key_database, default = None)
+    
     if id == '1':
         name = input("Введите имя, которое хотите найти\n")
-        print(select("bd\heroes.csv", "name", name))
+        data = select("bd\heroes.csv", "name", name)
+        print(select('bd\heroes.csv', "name", data.get('name')))
+    
     elif id == '2':
         
-        name = input("Введите name, который хотите найти\n")
+        name = input("Введите имя, которое хотите найти\n")
 
         data = select("bd\heroes.csv", "name", name)
 
         print(select("bd\heroes_info.csv", "id", data.get('id')))
 
     elif id == '3':
-        id = input("Введите id, который хотите найти\n")
-        print(select("bd\stats.csv", "id", id))
+        id = input("Введите имя, которое хотите найти\n")
+        data = select("bd\heroes.csv", "name", name)
+        print(select("bd\stats.csv", "id", data.get('id')))
     elif id == '4':
-        id = input("Введите id, который хотите найти\n")
-        print(select("bd\meta.csv", "id", id))
+        id = input("Введите имя, которое хотите найти\n")
+        data = select("bd\heroes.csv", "name", name)
+        print(select("bd\meta.csv", "id", data.get('id')))
     elif id == '9':
         user_dialog()
     elif id == '0':
