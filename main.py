@@ -12,36 +12,49 @@ def user_dialog():
 
 
 def heroes_dialog_operations(id):
-    #key_database = input('Введите желаемую баззу данных ')
-    #database =  get_database.get(key_database, default = None)
+
     
-    if id == '1':
-        name = input("Введите имя, которое хотите найти\n")
-        data = select("bd\heroes.csv", "name", name)
-        print(select('bd\heroes.csv', "name", data.get('name')))
+
+    # if id == '1':
+    #     name = input("Введите имя, которое хотите найти\n")
+    #     print(select(result, "name", data.get('name')))
+
+    # elif id == '2':
+
+    #     name = input("Введите имя, которое хотите найти\n")
+
+    #     data = select("bd\heroes.csv", "name", name)
+
+    #     print(select(result, "id", data.get('id')))
+
+    # elif id == '3':
+    #     name = input("Введите имя, которое хотите найти\n")
+    #     data = select("bd\heroes.csv", "name", name)
+    #     print(select(result, "id", data.get('id')))
+    # elif id == '4':
+    #     name = input("Введите имя, которое хотите найти\n")
+    #     data = select("bd\heroes.csv", "name", name)
+    #     print(select(result, "id", data.get('id')))
     
-    elif id == '2':
-        
-        name = input("Введите имя, которое хотите найти\n")
-
-        data = select("bd\heroes.csv", "name", name)
-
-        print(select("bd\heroes_info.csv", "id", data.get('id')))
-
-    elif id == '3':
-        id = input("Введите имя, которое хотите найти\n")
-        data = select("bd\heroes.csv", "name", name)
-        print(select("bd\stats.csv", "id", data.get('id')))
-    elif id == '4':
-        id = input("Введите имя, которое хотите найти\n")
-        data = select("bd\heroes.csv", "name", name)
-        print(select("bd\meta.csv", "id", data.get('id')))
-    elif id == '9':
+    if id == '9':
         user_dialog()
     elif id == '0':
         menu_exit(user_dialog)
     else:
-        menu_404()
+       # menu_404()
+        database = get_database()
+        table = database.get(int(id))
+        # проверку что теременная заполнена
+        if True:
+            field_search = input("Введите имя, которое хотите найти\n")
+            field_name = 'name'
+            if table != MAIN_TABLE:
+                 data = select(MAIN_TABLE, "name", field_search)  
+                 field_name = 'id'
+                 field_search = data.get('id') 
+
+            response = select(table, field_name, field_search) 
+            print(response)
 
     user_dialog()
 

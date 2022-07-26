@@ -1,3 +1,5 @@
+MAIN_TABLE = 'bd\heroes.csv'
+
 def get_main_menu():
 
     return {
@@ -22,10 +24,11 @@ def get_heroes_menu():
 
 
 def get_database():
+
     return {
-        1: 'bd\heroes.csv',
+        1: MAIN_TABLE,
         2: 'bd\heroes_info.csv',
-        3: 'bd\meta.csv',
-        4: 'bd\stats.csv',
+        3: 'bd\stats.csv',
+        4: 'bd\meta.csv',
 
     }
