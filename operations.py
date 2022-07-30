@@ -20,5 +20,10 @@ def update():
     pass
 
 
-def insert():
-    pass
+def insert(file_name: str):
+    with open(file_name, "r", encoding="UTF-8") as file:
+        bd = csv.reader(file, delimiter=';')
+        for line in bd:
+            break
+
+    return {}
