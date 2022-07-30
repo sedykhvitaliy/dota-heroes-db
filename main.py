@@ -13,47 +13,28 @@ def user_dialog():
 
 def heroes_dialog_operations(id):
 
-    
-
-    # if id == '1':
-    #     name = input("Введите имя, которое хотите найти\n")
-    #     print(select(result, "name", data.get('name')))
-
-    # elif id == '2':
-
-    #     name = input("Введите имя, которое хотите найти\n")
-
-    #     data = select("bd\heroes.csv", "name", name)
-
-    #     print(select(result, "id", data.get('id')))
-
-    # elif id == '3':
-    #     name = input("Введите имя, которое хотите найти\n")
-    #     data = select("bd\heroes.csv", "name", name)
-    #     print(select(result, "id", data.get('id')))
-    # elif id == '4':
-    #     name = input("Введите имя, которое хотите найти\n")
-    #     data = select("bd\heroes.csv", "name", name)
-    #     print(select(result, "id", data.get('id')))
-    
     if id == '9':
         user_dialog()
     elif id == '0':
         menu_exit(user_dialog)
     else:
-       # menu_404()
+
         database = get_database()
         table = database.get(int(id))
-        # проверку что теременная заполнена
-        if True:
+        if table is not None:
             field_search = input("Введите имя, которое хотите найти\n")
             field_name = 'name'
-            if table != MAIN_TABLE:
-                 data = select(MAIN_TABLE, "name", field_search)  
-                 field_name = 'id'
-                 field_search = data.get('id') 
 
-            response = select(table, field_name, field_search) 
+            if table != MAIN_TABLE:
+                data = select(MAIN_TABLE, "name", field_search)
+                field_name = 'id'
+                field_search = data.get('id')
+
+            response = select(table, field_name, field_search)
+            if response.get('meta') is not None:
+                data_meta = select(META_TABLE, 'id', response.get('meta'))
+                response['meta'] = data_meta.get('name')
+
             print(response)
 
     user_dialog()

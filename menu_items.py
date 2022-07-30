@@ -1,4 +1,5 @@
 MAIN_TABLE = 'bd\heroes.csv'
+META_TABLE = 'bd\meta.csv'
 
 def get_main_menu():
 
@@ -28,6 +29,6 @@ def get_database():
         1: MAIN_TABLE,
         2: 'bd\heroes_info.csv',
         3: 'bd\stats.csv',
-        4: 'bd\meta.csv',
+        4: META_TABLE,
 
     }
