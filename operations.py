@@ -24,6 +24,14 @@ def insert(file_name: str):
     with open(file_name, "r", encoding="UTF-8") as file:
         bd = csv.reader(file, delimiter=';')
         for line in bd:
+            i = 0
+            while i < len(line):
+                print('Введите что запрашивают')
+                user_input = input(line[i])
+                i += 1
+            line_dictionary = dict.fromkeys(line, user_input)  
+            print(line_dictionary)
             break
+
 
     return {}
