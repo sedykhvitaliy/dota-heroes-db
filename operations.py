@@ -25,11 +25,13 @@ def insert(file_name: str):
         bd = csv.reader(file, delimiter=';')
         for line in bd:
             i = 0
+            line_dictionary = dict.fromkeys(line)  
             while i < len(line):
-                print('Введите что запрашивают')
-                user_input = input(line[i])
+                # print('Введите', line[i], ":")
+                print(f'Введите {line[i]}:')
+                user_input = input()
+                line_dictionary[line[i]] = user_input.strip()
                 i += 1
-            line_dictionary = dict.fromkeys(line, user_input)  
             print(line_dictionary)
             break
 
