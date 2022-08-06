@@ -21,19 +21,28 @@ def update():
 
 
 def insert(file_name: str):
+   
+    headers = []
     with open(file_name, "r", encoding="UTF-8") as file:
         bd = csv.reader(file, delimiter=';')
         for line in bd:
-            i = 0
-            line_dictionary = dict.fromkeys(line)  
-            while i < len(line):
-                # print('Введите', line[i], ":")
-                print(f'Введите {line[i]}:')
-                user_input = input()
-                line_dictionary[line[i]] = user_input.strip()
-                i += 1
-            print(line_dictionary)
+            headers = line
             break
+        file.close()
+
+    with open(file_name, "a", encoding="UTF-8", newline='') as file:
+    
+        i = 0
+        line_dictionary = dict.fromkeys(headers)  
+        while i < len(headers):
+            print(f'Введите {headers[i]}:')
+            user_input = input()
+            line_dictionary[headers[i]] = user_input.strip()
+            i += 1
+
+        dictwriter_object = csv.DictWriter(file, fieldnames=headers, delimiter=';')
+        dictwriter_object.writerow(line_dictionary)
+        file.close()
 
 
-    return {}
+    return print(f'Добавлена запись: {line_dictionary}')
