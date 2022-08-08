@@ -1,5 +1,7 @@
 import csv
 
+from actions import menu_404
+
 
 def select(file_name: str, field_name: str, field_search: str):
 
@@ -35,11 +37,14 @@ def insert(file_name: str):
         i = 0
         line_dictionary = dict.fromkeys(headers)  
         while i < len(headers):
+            
             print(f'Введите {headers[i]}:')
             user_input = input()
-            line_dictionary[headers[i]] = user_input.strip()
-            i += 1
-
+            if user_input.strip():
+                line_dictionary[headers[i]] = user_input.strip()
+                i += 1
+            else:
+                print('Введите ещё раз')
         dictwriter_object = csv.DictWriter(file, fieldnames=headers, delimiter=';')
         dictwriter_object.writerow(line_dictionary)
         file.close()
