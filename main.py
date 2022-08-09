@@ -1,11 +1,12 @@
 from typing import Dict
 from actions import *
 from menu_items import *
-from operations import select, insert
+from operations import initial_db, select, insert
 
 
 def user_dialog():
 
+    initial_db()
     result_main = main_dialog()
     result_heroes = heroes_dialog(result_main)
     heroes_dialog_operations(result_heroes, result_main)

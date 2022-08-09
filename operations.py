@@ -1,6 +1,7 @@
 import csv
+from menu_items import get_database
 
-from actions import menu_404
+DB_HEADERS = {}
 
 
 def select(file_name: str, field_name: str, field_search: str):
@@ -23,14 +24,8 @@ def update():
 
 
 def insert(file_name: str):
-   
-    headers = []
-    with open(file_name, "r", encoding="UTF-8") as file:
-        bd = csv.reader(file, delimiter=';')
-        for line in bd:
-            headers = line
-            break
-        file.close()
+
+    headers = DB_HEADERS.get(file_name)
 
     with open(file_name, "a", encoding="UTF-8", newline='') as file:
     
@@ -51,3 +46,18 @@ def insert(file_name: str):
 
 
     return print(f'Добавлена запись: {line_dictionary}')
+
+
+def initial_db():
+
+    database = get_database()
+    headers = []
+    for id in database:
+        table = database.get(int(id))
+        with open(table, "r", encoding="UTF-8") as file:
+            bd = csv.reader(file, delimiter=';')
+            for line in bd:
+                headers = line
+                break
+            DB_HEADERS[table] = headers
+            file.close()
