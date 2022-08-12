@@ -27,15 +27,26 @@ def insert(file_name: str):
 
     headers = DB_HEADERS.get(file_name)
 
+    with open(file_name, "r", encoding="UTF-8") as file:
+        bd = csv.DictReader(file, delimiter=';')
+        all_lines = list(bd)
+        last_line = (all_lines[-1])
+        last_id = last_line['id']
+        
+        
+        
+            
+
     with open(file_name, "a", encoding="UTF-8", newline='') as file:
     
-        i = 0
+        i = 1
         line_dictionary = dict.fromkeys(headers)  
         while i < len(headers):
             
             print(f'Введите {headers[i]}:')
             user_input = input()
             if user_input.strip():
+                line_dictionary[headers[0]] = int(last_id)+1
                 line_dictionary[headers[i]] = user_input.strip()
                 i += 1
             else:
