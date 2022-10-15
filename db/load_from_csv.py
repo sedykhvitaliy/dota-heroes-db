@@ -1,10 +1,11 @@
+import csv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from menu_items import *
+from menu_items import get_database
 from models import Heroes, Heroes_info, Stats
-from operations import *
+from operations import select
 from settings import *
 
 engine = None
