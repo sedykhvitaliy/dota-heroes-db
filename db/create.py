@@ -1,14 +1,24 @@
-from sqlalchemy import create_engine
-from settings import *
-from models import Heroes, Heroes_info, Stats
+from sqlalchemy import create_engine, MetaData
+from db.settings import *
+from db.models import Heroes, Heroes_info, Stats
 
-engine = None
 
-if DB_ENGINE == "postgresql":
-    engine = create_engine(
-        f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}', echo=True)
+def get_engine():
+    eng = None
+    if DB_ENGINE == "postgresql":
+        eng = create_engine(
+            f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}', echo=True)
 
-if engine == None:
+    return eng
+
+
+def get_meta(engine):
+    return MetaData(engine)
+
+
+engine = get_engine()
+
+if engine is None:
     print('error!')
     exit()
 
