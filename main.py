@@ -1,7 +1,7 @@
 from typing import Dict
 from actions import *
 from menu_items import *
-from operations import initial_db, select_db, insert
+from operations import initial_db, select_db, insert_db
 from db.create import get_engine, get_meta
 
 engine = get_engine()
@@ -23,20 +23,17 @@ def heroes_dialog_operations(id, operation='1'):
         menu_exit(user_dialog)
     else:
 
-        # database = get_database()
-        # table = database.get(int(id))
-        # if table is not None:
-
+        response = {}
         # select
         if operation == '1':
 
-            response = select_db(operation, con, meta)
-            print(response)
+            response = select_db(operation, id, con, meta)
 
         # insert
-        # if operation == '2':
-        #     response = insert(table)
-        #    print(response)
+        if operation == '2':
+             response = insert_db(operation, id, con, meta)
+
+        print(response)
 
     user_dialog()
 

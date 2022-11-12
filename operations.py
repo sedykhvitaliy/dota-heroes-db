@@ -17,13 +17,13 @@ def select(file_name: str, field_name: str, field_search: str):
     return {}
 
 
-def get_table_from_operation(operation, meta):
+def get_table_from_id(id, meta):
     table = None
-    if operation == '1':
+    if id == '1':
         table = Heroes.__tablename__
-    if operation == '2':
+    if id == '2':
         table = Stats.__tablename__
-    if operation == '3':
+    if id == '3':
         table = Heroes_info.__tablename__
 
     if table is not None:
@@ -32,12 +32,23 @@ def get_table_from_operation(operation, meta):
     return table
 
 
-def select_db(operation, con, meta):
-    table = get_table_from_operation(operation, meta)
-    insert_heroes_name = input('Введите имя персонажа')
-    select_heroes_information = table.select().where(table.c.name == insert_heroes_name)
-    result = con.execute(select_heroes_information)
-    return {'data': result.first()}
+def select_db(operation, table_id, con, meta):
+    table = get_table_from_id(table_id, meta)
+    select_heroes_information = None
+    data = {}
+    if operation == '1':
+        insert_heroes_name = input('Введите имя персонажа: \n')
+        select_heroes_information = table.select().where(table.c.name == insert_heroes_name)
+
+    if operation == '2' or operation == '3':
+        insert_heroes_id = input('Введите id персонажа: \n')
+        select_heroes_information = table.select().where(table.c.id == insert_heroes_id)
+
+    if select_heroes_information is not None:
+        result = con.execute(select_heroes_information)
+        data = {'data': result.first()}
+
+    return data
 
 
 def delete():
@@ -71,6 +82,26 @@ def insert(file_name: str):
 
     return print(f'Добавлена запись: {line_dictionary}')
 
+def insert_db(operation, table_id, con, meta):
+    table = get_table_from_id(table_id, meta)
+    select_heroes_information = None
+    data = {}
+    if operation == '2':
+
+        data = {}
+        for column in table.c:
+            if not (column.primary_key or len(column.foreign_keys) > 0):
+                user_input = input(f'Введите {column.name}:')
+                data[column.name] = user_input
+                # заполняем словарь введенными данными
+
+        select_heroes_information = table.insert().values(data)
+
+    if select_heroes_information is not None:
+        con.execute(select_heroes_information)
+        data = {'data': data}
+
+    return data
 
 def initial_db():
     database = get_database()
