@@ -55,8 +55,36 @@ def delete():
     pass
 
 
-def update():
-    pass
+def update_db(operation, table_id, con, meta):
+    table = get_table_from_id('1', meta)
+    select_heroes_information = table.select()
+    result = con.execute(select_heroes_information)
+    count = 1
+    heroes_data = {}
+    for row in result.fetchall():
+        print(f'{count} - {row[1]}')
+        heroes_data[count] = row
+        count += 1
+    user_input_number = int(input('Выберите номер героя: '))
+    print(heroes_data[user_input_number])
+    id_heroes = heroes_data[user_input_number][0]
+    data = {}
+    count = 1
+    column_dict = {}
+    for column in table.c:
+        if not (column.primary_key or len(column.foreign_keys) > 0):
+            column_dict[count] = column.name
+            count += 1
+    print("Доступные колонки для изменения:")
+    for i in column_dict:
+        print(f'{i} - {column_dict[i]}')
+
+    user_input_column = int(input('Выберите номер колонки: '))
+
+    user_input = int(input(f'Введите {column_dict[user_input_column]}: '))
+    data[column.name] = user_input
+    update_heroes_information = table.update().where(table.c.id_heroes == id_heroes).values(data)
+    con.execute(update_heroes_information)
 
 
 def insert(file_name: str):
@@ -82,6 +110,7 @@ def insert(file_name: str):
 
     return print(f'Добавлена запись: {line_dictionary}')
 
+
 def insert_db(operation, table_id, con, meta):
     table = get_table_from_id(table_id, meta)
     select_heroes_information = None
@@ -102,6 +131,7 @@ def insert_db(operation, table_id, con, meta):
         data = {'data': data}
 
     return data
+
 
 def initial_db():
     database = get_database()
