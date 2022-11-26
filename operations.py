@@ -51,8 +51,34 @@ def select_db(operation, table_id, con, meta):
     return data
 
 
-def delete():
-    pass
+def delete_db(operation, table_id, con, meta):
+    table = get_table_from_id('1', meta)
+    select_heroes_information = table.select()
+    result = con.execute(select_heroes_information)
+    count = 1
+    heroes_data = {}
+    for row in result.fetchall():
+        print(f'{count} - {row[1]}')
+        heroes_data[count] = row
+        count += 1
+    user_input_number = int(input('Выберите номер героя: '))
+    print(heroes_data[user_input_number])
+    id_heroes = heroes_data[user_input_number][0]
+    delete_sub_table(id_heroes, con, meta, '2')
+    delete_sub_table(id_heroes, con, meta, '3')
+    delete_main_heroes_information = table.delete().where(table.c.id_heroes == id_heroes)
+    con.execute(delete_main_heroes_information)
+    return 'done'
+
+
+def delete_sub_table(id_heroes, con, meta, table_id):
+    table = get_table_from_id(table_id, meta)
+    select_heroes_info = table.select().where(table.c.heroes_id == id_heroes)
+    result = con.execute(select_heroes_info)
+    print(result.first())
+    if select_heroes_info is not None:
+        delete_heroes_information = table.delete().where(table.c.heroes_id == id_heroes)
+        result = con.execute(delete_heroes_information)
 
 
 def update_db(operation, table_id, con, meta):
